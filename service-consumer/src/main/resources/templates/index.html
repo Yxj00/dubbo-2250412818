@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <script th:href="@{/js/jquery-1.12.4.js}"></script>
+    <script th:href="@{/js/bootstrap.js}"></script>
+</head>
+<body>
+<h1>快递柜列表</h1>
+<div class="div1">
+    <form action="/cc">
+        快递柜位置<input th:type="text" name="position">
+        快递员姓名<input th:type="text" name="courierName">
+        <input th:type="submit" value="查询">
+    </form>
+
+</div>
+<div class="div2" style="top: 68px;right: -30px;width: 100px;position: absolute">
+    <form action="fetch" >
+        <input th:type="submit" value="取件" >
+    </form>
+</div>
+<div>
+    <table align="center" border="1" cellspacing="0" style="text-align: center;width: 95%">
+        <tr>
+            <th>序号</th>
+            <th>快递柜位置</th>
+            <th>快递仓编号</th>
+            <th>状态</th>
+            <th>快递单号</th>
+            <th>快递员姓名</th>
+            <th>快递公司</th>
+            <th>快递员手机号码</th>
+            <th>取件码</th>
+            <th>收件人姓名</th>
+            <th>收件人手机号码</th>
+            <th>操作</th>
+        </tr>
+
+        <tr th:each="cabinets:${pageInfo.list}">
+            <td th:text="${cabinets.id}"></td>
+            <td th:text="${cabinets.position}"></td>
+            <td th:text="${cabinets.address}"></td>
+            <th:block th:if="${cabinets.status == 0}">
+                <td>空闲</td>
+            </th:block>
+            <th:block th:if="${cabinets.status == 1}">
+                <td>使用中</td>
+            </th:block>
+            <td th:text="${cabinets.courierNumber}"></td>
+            <td th:text="${cabinets.courierName}"></td>
+            <td th:text="${cabinets.courier.company}"></td>
+            <td th:text="${cabinets.courier.courierTel}"></td>
+            <td th:text="${cabinets.getCode}"></td>
+            <td th:text="${cabinets.username}"></td>
+            <td th:text="${cabinets.usernameTel}"></td>
+<!--            空闲则可以存入，使用中则不可以-->
+            <th:block th:if="${cabinets.status == 0}">
+                <td>
+                    <a th:href="@{/deposit/{id}(id=${cabinets.id})}">
+                        <button type="button">存入</button>
+                    </a>
+                </td>
+            </th:block>
+            <th:block th:if="${cabinets.status == 1}">
+                <td>
+                    <button disabled="disabled" style="background-color: #DDDDDD;">存入</button>
+                </td>
+            </th:block>
+        </tr>
+        <!--            </span>-->
+    </table>
+    <div align="center">
+    <p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,总 <span th:text="${pageInfo.pages}"></span> 页,共 <span
+            th:text="${pageInfo.total}"></span> 条记录</p>
+    </div>
+    <div  align="center">
+        <a th:href="@{/}" class="item">首页</a>
+        <a th:href="@{/cc(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" class="item">上一页</a>
+
+
+        <!--循环遍历连续显示的页面，若是当前页就高亮显示，并且没有链接-->
+
+        <b th:each="nav : ${pageInfo.navigatepageNums}">
+            <a th:href="'/cc?pageNum='+${nav}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"
+               class="item"></a>
+            <span style="font-weight: bold;background: #6faed9;" th:if="${nav == pageInfo.pageNum}" th:text="${nav}"
+                  class="item"></span>
+        </b>
+
+
+        <a th:href="@{/cc(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"
+           class="item">下一页</a>
+        <a th:href="@{/cc(pageNum=${pageInfo.pages})}" class="item">尾页</a>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</div>
+</body>
+</html>

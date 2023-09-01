@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icss.mapper.ListMapper">
+<resultMap id="All" type="cabinet">
+    <id property="id" column="id"/>
+    <result property="position" column="position"/>
+    <result property="address" column="address"/>
+    <result property="status" column="status"/>
+    <result property="courierNumber" column="courierNumber"/>
+    <result property="courierName" column="courierName"/>
+    <result property="getCode" column="getCode"/>
+    <result property="username" column="username"/>
+    <result property="usernameTel" column="usernameTel"/>
+    <association property="courier" javaType="courier">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="courierTel" column="courierTel"/>
+        <result property="company" column="company"/>
+        <result property="num" column="num"/>
+    </association>
+</resultMap>
+    <select id="selectList" resultMap="All">
+        select *
+        from cabinet as c
+        left join courier as co on c.courierName=co.name
+        <where>
+            <if test='position != null and position != ""'>
+                and c.position like concat('%',#{position},'%')
+            </if>
+            <if test='courierName != null and courierName != ""'>
+                and c.courierName like concat('%',#{courierName},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

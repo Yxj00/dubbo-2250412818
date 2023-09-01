@@ -1,0 +1,15 @@
+h1{
+    text-align: center;
+}
+.div1{
+    width: 50%;
+    margin-left: 25px;
+    /*background-color: red;*/
+}
+.div1 input{
+    width: 50px;
+}
+/*.div2{*/
+/*    width: 50%;*/
+/*}*/
+

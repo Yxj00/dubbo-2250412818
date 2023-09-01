@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icss.mapper.DepositMapper">
+    <resultMap id="All" type="cabinet">
+        <id property="id" column="id"/>
+        <result property="position" column="position"/>
+        <result property="address" column="address"/>
+        <result property="status" column="status"/>
+        <result property="courierNumber" column="courierNumber"/>
+        <result property="courierName" column="courierName"/>
+        <result property="getCode" column="getCode"/>
+        <result property="username" column="username"/>
+        <result property="usernameTel" column="usernameTel"/>
+        <association property="courier" javaType="courier">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="courierTel" column="courierTel"/>
+            <result property="company" column="company"/>
+            <result property="num" column="num"/>
+        </association>
+    </resultMap>
+    <select id="selectById" resultMap="All">
+        select *
+        from cabinet as c
+         left join courier as co on c.courierName=co.name
+        where c.id=#{id}
+    </select>
+    <select id="selectCourierName" resultType="java.lang.String">
+        select co.name
+        from courier as co
+    </select>
+    <select id="selectByName" resultType="com.icss.pojo.Courier">
+        select *
+        from courier as co where co.name=#{name}
+    </select>
+    <update id="updateCabinet">
+        update cabinet  set status=1,
+                                courierNumber = #{courierNumber},
+                                courierName = #{courierName},
+                                getCode=#{getCode},
+                                username = #{username},
+                                usernameTel = #{usernameTel} WHERE id = #{id}
+    </update>
+    <update id="updateCourier">
+        update courier
+        set num = num+1
+        where name=#{name}
+    </update>
+    <insert id="insertRecord">
+        insert into record (time, type, position, address, person, tel)
+        values (now(),1,#{position},#{address},#{person},#{tel})
+    </insert>
+</mapper>

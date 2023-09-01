@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>存入快递</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+</head>
+<body>
+  <h1 id="table-title">存入快递</h1>
+  <form id="depositForm" method="post" th:action="@{/deposit/update}">
+      <input type="hidden" th:value="${cabinet.id}" name="id">
+      <table>
+          <tr>
+              <td class="depositFormLeft">快递柜位置</td>
+              <td>
+                  <input type="hidden" th:value="${cabinet.position}" name="position">
+                  <input type="text" th:value="${cabinet.position}" disabled>
+              </td>
+          </tr>
+          <tr>
+              <td class="depositFormLeft">行列</td>
+              <td>
+                  <input type="hidden" th:value="${cabinet.address}" name="address">
+                  <input type="text" th:value="${cabinet.address}" disabled>
+              </td>
+          </tr>
+          <tr>
+              <td class="depositFormLeft">状态</td>
+              <td>
+                  <input type="hidden" th:value="${cabinet.status}" name="status">
+                  <th:block th:if="${cabinet.status == 0}">
+                      <input type="text" value="空闲" disabled>
+                  </th:block>
+                  <th:block th:if="${cabinet.status == 1}">
+                      <input type="text" value="使用中" disabled>
+                  </th:block>
+              </td>
+          </tr>
+          <tr>
+              <td class="depositFormLeft">快递员姓名</td>
+              <td>
+                  <select class="form-control" name="courierName" id="courierName" onchange="courierName1()">
+                      <option></option>
+                      <th:block th:each="courierName:${name}">
+                          <option th:text="${courierName}" th:value="${courierName}"></option>
+                      </th:block>
+                  </select>
+              </td>
+          </tr>
+          <tr>
+              <td class="depositFormLeft">快递公司</td>
+              <td>
+                  <input type="hidden" name="company" class="company">
+                  <input type="text" class="company" disabled>
+              </td>
+          </tr>
+          <tr>
+              <td class="depositFormLeft">快递员手机号码</td>
+              <td>
+                  <input type="hidden" name="courierTel" class="courierTel">
+                  <input type="text" class="courierTel" disabled>
+              </td>
+          </tr>
+          <tr>
+              <td class="depositFormLeft">快递单号</td>
+              <td>
+                  <input type="text" name="courierNumber" id="courierNumber">
+              </td>
+          </tr>
+          <tr>
+              <td class="depositFormLeft">收件人姓名</td>
+              <td>
+                  <input type="text" name="username" id="username">
+              </td>
+          </tr>
+          <tr>
+              <td class="depositFormLeft">收件人手机号码</td>
+              <td>
+                  <input type="text" name="usernameTel" id="usernameTel">
+              </td>
+          </tr>
+          <tr id="depositSubmit">
+              <td colspan="2">
+                  <button type="submit"  class="btn btn-primary" onclick="return verification()">存入</button>
+              </td>
+          </tr>
+      </table>
+  </form>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-1.12.4.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+</html>

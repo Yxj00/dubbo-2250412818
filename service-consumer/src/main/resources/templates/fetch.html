@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>取出快递</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+</head>
+<body>
+<h1 id="table-title">取出快递</h1>
+<form id="takeOutForm"  method="post" action="out">
+    <table>
+        <tr>
+            <td class="takeOutFormLeft">手机号码</td>
+            <td>
+                <input type="text" name="usernameTel" id="usernameTel">
+                <input th:type="button" value="获取取件码" onclick="sendCode()" style="width: 100px">
+            </td>
+        </tr>
+        <tr>
+            <td class="depositFormLeft">取件码</td>
+            <td>
+                <input type="text" name="getCode" id="getCode">
+<!--                <span class="codeInfo" style="color: red;display: none">验证码错误</span>-->
+            </td>
+        </tr>
+        <tr id="takeOutSubmit">
+            <td colspan="2">
+                <button type="sumit"  class="btn btn-primary" onclick="return checkCode()">取出</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-1.12.4.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+</html>

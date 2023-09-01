@@ -1,0 +1,70 @@
+/*首页*/
+#table-title{
+    text-align: center;
+}
+#selectLike{
+    margin-left: 5px;
+    display: inline;
+}
+#selectLike input{
+    width: 100px;
+}
+#selectLike button {
+    background-color: white;
+    border: 1px solid black;
+}
+#takeOutButton{
+    float: right;
+    margin-right: 25px;
+}
+#takeOutButton button{
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+}
+#mainList{
+    text-align: center;
+}
+#mainList th{
+    text-align: center;
+}
+
+#mainList tfoot tr td a:hover{
+    text-decoration:overline;
+}
+#mainList button{
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+}
+#mainListFoot{
+    color: #999999;
+}
+
+/*存入、取出页面*/
+#depositForm table,#takeOutForm table{
+    margin: auto;
+}
+#depositForm table tr,#takeOutForm table tr{
+    height: 50px;
+}
+.depositFormLeft,.takeOutFormLeft{
+    text-align: right;
+    padding-right: 10px;
+}
+#depositForm input,#depositForm select,
+#takeOutForm input{
+    height: 40px;
+    width: 300px;
+}
+#name{
+    display: inline;
+    width: 100px;
+}
+#depositSubmit,#takeOutSubmit{
+    text-align: center;
+}
+.btn-primary{
+    width: 200px;
+    height: 40px;
+}
